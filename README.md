@@ -11,7 +11,7 @@ Pomobud is a productivity Chrome extension that helps you stay focused and manag
 
 ## Installation
 
-To install Pomobuddy, follow these steps:
+To install Pomobud, follow these steps:
 
 1. Download the zip file from the [GitHub repository](https://github.com/Zazelus/Pomobud).
 2. Unzip the file to a location on your computer.
@@ -22,7 +22,7 @@ To install Pomobuddy, follow these steps:
 
 ## Usage
 
-1. Click the Pomobuddy icon in the Chrome toolbar to open the extension.
+1. Click the Pomobud icon in the Chrome toolbar to open the extension.
 2. Choose your desired Pomodoro timer interval and break interval from the dropdown menus.
 3. Click the "Start" button to begin the Pomodoro timer.
 4. Take a break when the timer ends and resume working when the break period is over.
@@ -30,8 +30,8 @@ To install Pomobuddy, follow these steps:
 
 ## Contribution
 
-If you want to contribute to Pomobuddy, you can fork the [GitHub repository](https://github.com/Zazelus/Pomobud) and submit a pull request with your changes.
+If you want to contribute to Pomobud, you can fork the [GitHub repository](https://github.com/Zazelus/Pomobud) and submit a pull request with your changes.
 
 ## License
 
-Pomobuddy is released under the [MIT License](https://opensource.org/licenses/MIT).
+Pomobud is released under the [MIT License](https://opensource.org/licenses/MIT).
