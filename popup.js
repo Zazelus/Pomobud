@@ -32,7 +32,7 @@ function updateStartButton(timerRunning) {
 resetBtn.addEventListener('click', () => {
     chrome.runtime.sendMessage({ type: 'resetTimer' });
 });
-
+ 
 function updateTimerMode(isWorkPhase) {
     const timerModeElement = document.querySelector('.timer-mode');
     timerModeElement.textContent = isWorkPhase ? 'Pomodoro' : 'Short Break';
@@ -53,11 +53,4 @@ setInterval(() => {
 // Open the settings page
 document.querySelector('.settings-link').addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
-});
-
-chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === 'timerModeChanged') {
-        alert(`${message.timerMode} session completed!`);
-        syncWithBackground();
-    }
 });

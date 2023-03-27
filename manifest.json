@@ -13,7 +13,8 @@
       "default_title": "Pomodoro Timer"
     },
     "permissions": [
-      "alarms"
+      "alarms",
+      "notifications"
     ],
     "background": {
         "scripts": ["background.js"],

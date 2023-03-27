@@ -35,21 +35,6 @@ function startTimer() {
     }, 1000);
 }
 
-function handleTimerEnd() {
-    isWorkPhase = !isWorkPhase;
-    timeRemaining = (isWorkPhase ? workTime : breakTime) * 60;
-    broadcastStatus();
-    clearInterval(intervalId);
-    timerRunning = false;
-    startTimer();
-
-    // Send a message to the popup with the timer mode
-    chrome.runtime.sendMessage({
-        type: 'timerModeChanged',
-        timerMode: isWorkPhase ? 'Pomodoro' : 'Short Break',
-    });
-}
-
 function resetTimer() {
     clearInterval(intervalId);
     timerRunning = false;
@@ -63,8 +48,20 @@ function handleTimerEnd() {
     broadcastStatus();
     clearInterval(intervalId);
     timerRunning = false;
-    // Uncomment the line below if you want to start the next phase automatically
-    // startTimer();
+
+    // Display a notification
+    const notificationOptions = {
+        type: 'basic',
+        iconUrl: '/icons/icon48.png',
+        title: `${!isWorkPhase ? 'Pomodoro' : 'Short Break'} session completed!`,
+        message: `Starting ${isWorkPhase ? 'Pomodoro' : 'Short Break'} session.`,
+    };
+    chrome.notifications.create('timerEnded', notificationOptions);
+
+    // Set a timeout to start the next timer after a short delay
+    setTimeout(() => {
+        startTimer();
+    }, 1000);
 }
 
 // Update the timer end condition
