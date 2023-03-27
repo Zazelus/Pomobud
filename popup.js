@@ -54,3 +54,10 @@ setInterval(() => {
 document.querySelector('.settings-link').addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
 });
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === 'timerModeChanged') {
+        alert(`${message.timerMode} session completed!`);
+        syncWithBackground();
+    }
+});

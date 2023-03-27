@@ -30,12 +30,24 @@ function startTimer() {
         timeRemaining--;
 
         if (timeRemaining < 0) {
-            clearInterval(intervalId);
-            timerRunning = false;
-            timeRemaining = workTime * 60;
-            chrome.runtime.sendMessage({ type: 'timerEnded' });
+            handleTimerEnd();
         }
     }, 1000);
+}
+
+function handleTimerEnd() {
+    isWorkPhase = !isWorkPhase;
+    timeRemaining = (isWorkPhase ? workTime : breakTime) * 60;
+    broadcastStatus();
+    clearInterval(intervalId);
+    timerRunning = false;
+    startTimer();
+
+    // Send a message to the popup with the timer mode
+    chrome.runtime.sendMessage({
+        type: 'timerModeChanged',
+        timerMode: isWorkPhase ? 'Pomodoro' : 'Short Break',
+    });
 }
 
 function resetTimer() {
