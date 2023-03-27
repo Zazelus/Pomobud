@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "Pomodoro Timer",
-    "version": "1.0",
+    "name": "Pomobud",
+    "version": "1.1",
     "description": "A simple Pomodoro timer Chrome extension",
     "icons": {
       "48": "icons/icon48.png",
@@ -18,5 +18,9 @@
     "background": {
         "scripts": ["background.js"],
         "persistent": false
+    },
+    "options_ui": {
+      "page": "settings.html",
+      "chrome_style": true
     }
 }  

@@ -10,40 +10,47 @@ function updateDisplay(minutes, seconds) {
 
 function syncWithBackground() {
     chrome.runtime.sendMessage({ type: 'requestStatus' }, (response) => {
-        const minutes = Math.floor(response.timeRemaining / 60);
-        const seconds = response.timeRemaining % 60;
-        updateDisplay(minutes, seconds);
-        startBtn.disabled = response.timerRunning;
-        resetBtn.disabled = !response.timerRunning;
+        updateDisplay(Math.floor(response.timeRemaining / 60), response.timeRemaining % 60);
+        updateTimerMode(response.isWorkPhase);
+        updateResetButton(response.timerRunning);
     });
 }
 
 startBtn.addEventListener('click', () => {
-    chrome.runtime.sendMessage({ type: 'startTimer' });
-    syncWithBackground();
+    chrome.runtime.sendMessage({ type: 'toggleTimer' }, (response) => {
+        updateDisplay(Math.floor(response.timeRemaining / 60), response.timeRemaining % 60);
+        updateTimerMode(response.isWorkPhase);
+        updateStartButton(response.timerRunning);
+        updateResetButton(response.timerRunning);
+    });
 });
+
+function updateStartButton(timerRunning) {
+    startBtn.textContent = timerRunning ? 'Pause' : 'Start';
+}
 
 resetBtn.addEventListener('click', () => {
     chrome.runtime.sendMessage({ type: 'resetTimer' });
-    syncWithBackground();
 });
 
-// Listen for timerEnded message from background script
-chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === 'timerEnded') {
-        alert('Pomodoro session completed! Take a break.');
-        syncWithBackground();
-    }
-});
-    
+function updateTimerMode(isWorkPhase) {
+    const timerModeElement = document.querySelector('.timer-mode');
+    timerModeElement.textContent = isWorkPhase ? 'Pomodoro' : 'Short Break';
+}
+
+function updateResetButton(timerRunning) {
+    resetBtn.disabled = !timerRunning;
+}
+
 // Sync the popup with the background script when it's opened
 syncWithBackground();
 
+// Keep the popup synced with the background script every second
 setInterval(() => {
     syncWithBackground();
 }, 1000);
 
 // Open the settings page
 document.querySelector('.settings-link').addEventListener('click', () => {
-    chrome.tabs.create({ url: 'settings.html' });
+    chrome.runtime.openOptionsPage();
 });

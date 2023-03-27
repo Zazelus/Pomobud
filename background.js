@@ -5,19 +5,23 @@ let timeRemaining = workTime * 60;
 let timerRunning = false;
 let isWorkPhase = true;
 
-
 const connectedPopups = new Set();
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === 'startTimer') {
-        if (!timerRunning) {
+    if (message.type === 'toggleTimer') {
+        if (timerRunning) {
+            clearInterval(intervalId);
+            timerRunning = false;
+        } else {
             timerRunning = true;
             startTimer();
         }
+        sendResponse({ timeRemaining, timerRunning, isWorkPhase });
     } else if (message.type === 'resetTimer') {
         resetTimer();
+        sendResponse({ timeRemaining, timerRunning, isWorkPhase });
     } else if (message.type === 'requestStatus') {
-        sendResponse({timeRemaining, timerRunning});
+        sendResponse({ timeRemaining, timerRunning, isWorkPhase });
     }
 });
 
@@ -72,3 +76,9 @@ window.addEventListener('storage', (e) => {
         }
     }
 });
+
+function broadcastStatus() {
+    connectedPopups.forEach((popupPort) => {
+        popupPort.postMessage({ timeRemaining, timerRunning, isWorkPhase });
+    });
+}
