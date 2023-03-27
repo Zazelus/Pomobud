@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 1rem;
+    width: 250px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+button {
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    background-color: #3d8aff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not([disabled]) {
+    background-color: #2c6bec;
+}
+
+.phase-label {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.settings-link {
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #3d8aff;
+}
+
+.settings-link:hover {
+    text-decoration: underline;
+}
