@@ -4,6 +4,8 @@ Pomobud is a productivity Chrome extension that helps you stay focused and manag
 
 This was made as a fun side project to learn more about the chrome API and polish my Javascript skills. There are one or two issues, maybe I'll get to them!
 
+Check it out on the [Chrome Web Store]()!
+
 ## Features
 
 - Simple and easy-to-use interface
